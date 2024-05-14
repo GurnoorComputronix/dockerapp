@@ -14,7 +14,7 @@ jobs:
             python3 -m ensurepip
             export VERIFY_SSL=False
             python3 -m pip install --upgrade pip
-            python3 -m pip install --trusted-host pypi.python.org setuptools docker-compose
+            python3 -m pip install --trusted-host pypi.python.org setuptools docker-compose==1.29.2
 
 
       - run:
