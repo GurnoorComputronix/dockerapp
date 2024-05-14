@@ -25,6 +25,11 @@ jobs:
             python --version  # Check Python version after update
 
       - run:
+          name: Install pynacl dependencies
+          command: |
+            apk add --no-cache libffi-dev
+
+      - run:
           name: Install pynacl
           command: |
             python3 -m pip install pynacl==1.4.0
