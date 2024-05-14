@@ -10,12 +10,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache python3-dev
+            apk update
+            apk add --no-cache python3-dev build-base libffi-dev openssl-dev
             python3 -m ensurepip
             export VERIFY_SSL=False
             python3 -m pip install --upgrade pip
             python3 -m pip install --trusted-host pypi.python.org setuptools docker-compose==1.24.0
-
 
       - run:
           name: Update Python version
@@ -23,11 +23,18 @@ jobs:
             apk add --no-cache python3
             ln -sf /usr/bin/python3 /usr/bin/python
             python --version  # Check Python version after update
+
+      - run:
+          name: Install cryptography
+          command: |
+            python3 -m pip install cryptography==3.4.7
+
       - run:
           name: Run tests
           command: |
             docker-compose up -d
             docker-compose run dockerapp python test.py
+
       - deploy:
           name: Push application Docker image
           command: |
@@ -36,3 +43,4 @@ jobs:
             docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/dockerapp:latest
             docker push $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/dockerapp:latest
+
