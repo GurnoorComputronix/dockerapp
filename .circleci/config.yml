@@ -16,6 +16,9 @@ jobs:
             export VERIFY_SSL=False
             python3 -m pip install --upgrade pip
             python3 -m pip install --trusted-host pypi.python.org setuptools docker-compose==1.24.0
+            # Add the following commands here:
+            apk add --no-cache libffi-dev
+            python3 -m pip install pynacl==1.4.0
 
       - run:
           name: Update Python version
@@ -23,16 +26,6 @@ jobs:
             apk add --no-cache python3
             ln -sf /usr/bin/python3 /usr/bin/python
             python --version  # Check Python version after update
-
-      - run:
-          name: Install pynacl dependencies
-          command: |
-            apk add --no-cache libffi-dev
-
-      - run:
-          name: Install pynacl
-          command: |
-            python3 -m pip install pynacl==1.4.0
 
       - run:
           name: Run tests
