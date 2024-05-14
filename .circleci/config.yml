@@ -12,7 +12,7 @@ jobs:
           command: |
             apk add --no-cache py-pip=9.0.0-r1
             export VERIFY_SSL=False
-            pip install docker-compose==1.15.0
+            pip install https://files.pythonhosted.org/packages/3c/43/abfb59b6df285fc0a19f0135f9a77ac7a44f9d67cfb0c8e0c45f8e42717a/docker-compose-1.15.0.tar.gz
       - run:
           name: Run tests
           command: |
