@@ -10,7 +10,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache py3-pip
+            apk add --no-cache python3-dev py3-setuptools
+            python3 -m ensurepip
             export VERIFY_SSL=False
             python3 -m pip install --trusted-host pypi.python.org docker-compose
       - run:
