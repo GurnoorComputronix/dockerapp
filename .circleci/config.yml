@@ -14,6 +14,12 @@ jobs:
             export VERIFY_SSL=False
             pip install --trusted-host pypi.python.org docker-compose
       - run:
+          name: Update Python version
+          command: |
+            apk add --no-cache python3
+            ln -sf /usr/bin/python3 /usr/bin/python
+            python --version  # Check Python version after update
+      - run:
           name: Run tests
           command: |
             docker-compose up -d
